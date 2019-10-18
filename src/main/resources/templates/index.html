@@ -5,6 +5,21 @@
   <title>Recipes Home</title>
 </head>
 <body>
-<h1>My Recipes!</h1>
+  <h1>My Recipes!</h1>
+
+  <div th:each="recipe : ${recipes}">
+    <h3 th:text="${recipe.description}">Description</h3>
+    <ul>
+      <li>Id: <span th:text="${recipe.id}">Id</span></li>
+      <li>Prep Time: <span th:text="${recipe.prepTime}">prep time</span></li>
+      <li>Cook Time: <span th:text="${recipe.cookTime}">cook time</span></li>
+      <li>Servings: <span th:text="${recipe.servings}">servings</span></li>
+      <li>Source: <span th:text="${recipe.source}">source</span></li>
+      <li>Url: <span th:text="${recipe.url}">url</span></li>
+      <li>Difficulty: <span th:text="${recipe.difficulty}">difficulty</span></li>
+      <li>Notes: <span th:text="${recipe.getNote().getRecipeNote()}">recipe note</span></li>
+      <li>Directions: <span th:text="${recipe.directions}">directions</span></li>
+    </ul>
+  </div>
 </body>
 </html>
