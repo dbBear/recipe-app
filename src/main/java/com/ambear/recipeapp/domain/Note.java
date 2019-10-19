@@ -1,7 +1,11 @@
 package com.ambear.recipeapp.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Data
+@EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Note {
 
@@ -15,21 +19,4 @@ public class Note {
   @Lob
   private String recipeNote;
 
-/* ----------------------------G and S---------------------------- */
-
-  public Recipe getRecipe() {
-    return recipe;
-  }
-
-  public void setRecipe(Recipe recipe) {
-    this.recipe = recipe;
-  }
-
-  public String getRecipeNote() {
-    return recipeNote;
-  }
-
-  public void setRecipeNote(String recipeNote) {
-    this.recipeNote = recipeNote;
-  }
 }

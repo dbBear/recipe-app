@@ -1,6 +1,5 @@
 package com.ambear.recipeapp;
 
-import com.ambear.recipeapp.bootstrap.DataLoader;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

@@ -4,22 +4,25 @@ import com.ambear.recipeapp.domain.*;
 import com.ambear.recipeapp.repositories.CategoryRepository;
 import com.ambear.recipeapp.repositories.RecipeRepository;
 import com.ambear.recipeapp.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Component
-public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
+public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
   private final RecipeRepository recipeRepository;
   private final CategoryRepository categoryRepository;
   private final UnitOfMeasureRepository unitOfMeasureRepository;
 
-  public DataLoader(
+  public RecipeBootstrap(
       RecipeRepository recipeRepository,
       CategoryRepository categoryRepository,
       UnitOfMeasureRepository unitOfMeasureRepository)
@@ -30,7 +33,10 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
   }
 
   @Override
+  @Transactional // solves an issues with 'lazy fetching' of data in hashcodes
   public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+    log.debug("I'm in the DataLoader class");
+
     recipeRepository.saveAll(getRecipes());
     System.out.println("Loaded recipes...");
   }
