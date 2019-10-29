@@ -2,24 +2,67 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+          integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+          integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
   <title>Recipes Home</title>
 </head>
 <body>
-  <h1>My Recipes!</h1>
-
-  <div th:each="recipe : ${recipes}">
-    <h3 th:text="${recipe.description}">Description</h3>
-    <ul>
-      <li>Id: <span th:text="${recipe.id}">Id</span></li>
-      <li>Prep Time: <span th:text="${recipe.prepTime}">prep time</span></li>
-      <li>Cook Time: <span th:text="${recipe.cookTime}">cook time</span></li>
-      <li>Servings: <span th:text="${recipe.servings}">servings</span></li>
-      <li>Source: <span th:text="${recipe.source}">source</span></li>
-      <li>Url: <span th:text="${recipe.url}">url</span></li>
-      <li>Difficulty: <span th:text="${recipe.difficulty}">difficulty</span></li>
-      <li>Notes: <span th:text="${recipe.getNote().getRecipeNote()}">recipe note</span></li>
-      <li>Directions: <span th:text="${recipe.directions}">directions</span></li>
-    </ul>
+  <div class="container-fluid" style="margin-top: 20px">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card border-light">
+          <div class="card-header">
+            <h1>My Recipes!</h1>
+          </div>
+          <div class="card-body">
+            <div th:each="recipe : ${recipes}">
+              <div class="card text-white bg-info" style="margin-top: 2rem">
+                <div class="card-body">
+                  <h4 class="card-title" th:text="${recipe.description}">Description</h4>
+                  <ul class="list-group list-group-flush ">
+                    <li class="list-group-item list-group-item-info">Id: <span th:text="${recipe.id}">Id</span></li>
+                    <li class="list-group-item list-group-item-info">Prep Time: <span th:text="${recipe.prepTime}">prep
+                      time</span></li>
+                    <li class="list-group-item list-group-item-info">Cook Time: <span th:text="${recipe.cookTime}">cook
+                      time</span></li>
+                    <li class="list-group-item list-group-item-info">Servings:
+                      <span th:text="${recipe.servings}">servings</span></li>
+                    <li class="list-group-item list-group-item-info">Source:
+                      <span th:text="${recipe.source}">source</span></li>
+                    <li class="list-group-item list-group-item-info">Url: <span th:text="${recipe.url}">url</span></li>
+                    <li class="list-group-item list-group-item-info">Difficulty:
+                      <span th:text="${recipe.difficulty}">difficulty</span></li>
+                    <li class="list-group-item list-group-item-info">Notes:<br>
+                      <span
+                        th:utext="${
+                          #strings.replace(recipe.getNote().getRecipeNote(),
+                          T(org.apache.commons.lang3.StringUtils).LF,
+                          '&lt;br /&gt;')
+                        }"
+                      >recipe note</span>
+                    <li class="list-group-item list-group-item-info">Directions: <br>
+                      <span th:utext="${#strings.replace(
+                        recipe.directions,
+                        T(org.apache.commons.lang3.StringUtils).LF,
+                        '&lt;br /&gt;')
+                      }"></span>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
 </body>
 </html>
