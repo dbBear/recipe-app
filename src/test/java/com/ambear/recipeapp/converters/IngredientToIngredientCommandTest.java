@@ -37,10 +37,13 @@ class IngredientToIngredientCommandTest {
 
   @Test
   void convert() {
-    UnitOfMeasure uom = UnitOfMeasure.builder()
-        .id(LONG_VALUE)
-        .description(DESCRIPTION)
-        .build();
+//    UnitOfMeasure uom = UnitOfMeasure.builder()
+//        .id(LONG_VALUE)
+//        .description(DESCRIPTION)
+//        .build();
+    UnitOfMeasure uom = new UnitOfMeasure();
+    uom.setId(LONG_VALUE);
+    uom.setDescription(DESCRIPTION);
 
     Ingredient ingredient = new Ingredient();
     ingredient.setId(LONG_VALUE);

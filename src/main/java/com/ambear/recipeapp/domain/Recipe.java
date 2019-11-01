@@ -12,7 +12,6 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(exclude = {"categories", "ingredients"})
 @Entity
-@Builder
 public class Recipe {
 
   @Id

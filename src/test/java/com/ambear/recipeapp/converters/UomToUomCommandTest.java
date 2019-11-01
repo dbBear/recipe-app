@@ -26,16 +26,15 @@ class UomToUomCommandTest {
 
   @Test
   void testEmptyObject() {
-    assertNotNull(converter.convert(UnitOfMeasure.builder().build()));
+    assertNotNull(converter.convert(new UnitOfMeasure()));
   }
 
 
   @Test
   void convert() {
-    UnitOfMeasure uom = UnitOfMeasure.builder()
-        .id(LONG_VALUE)
-        .description(DESCRIPTION)
-        .build();
+    UnitOfMeasure uom = new UnitOfMeasure();
+    uom.setId(LONG_VALUE);
+    uom.setDescription(DESCRIPTION);
 
     UomCommand uomCommand = converter.convert(uom);
 

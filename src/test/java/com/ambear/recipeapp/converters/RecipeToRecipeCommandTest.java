@@ -44,7 +44,7 @@ class RecipeToRecipeCommandTest {
 
   @Test
   void testEmptyObject() {
-    assertNotNull(converter.convert(Recipe.builder().build()));
+    assertNotNull(converter.convert(new Recipe()));
   }
 
   @Test
@@ -56,10 +56,13 @@ class RecipeToRecipeCommandTest {
     category2.setId(LONG_VALUE_2);
     category2.setDescription(DESCRIPTION_2);
 
-    UnitOfMeasure uom = UnitOfMeasure.builder()
-        .id(LONG_VALUE_1)
-        .description(DESCRIPTION_1)
-        .build();
+//    UnitOfMeasure uom = UnitOfMeasure.builder()
+//        .id(LONG_VALUE_1)
+//        .description(DESCRIPTION_1)
+//        .build();
+    UnitOfMeasure uom = new UnitOfMeasure();
+    uom.setId(LONG_VALUE_1);
+    uom.setDescription(DESCRIPTION_1);
 
     Ingredient ingredient1 = new Ingredient();
     ingredient1.setId(LONG_VALUE_1);
@@ -76,20 +79,31 @@ class RecipeToRecipeCommandTest {
     note.setId(LONG_VALUE_1);
     note.setRecipeNote(DESCRIPTION_1);
 
-    Recipe recipe = Recipe.builder()
-        .id(LONG_VALUE_1)
-        .description(DESCRIPTION_1)
-        .prepTime(PREP_TIME)
-        .cookTime(COOK_TIME)
-        .servings(SERVINGS)
-        .source(SOURCE)
-        .url(URL)
-        .directions(DIRECTIONS)
-        .difficulty(DIFFICULTY)
-        .note(note)
-        .categories(new HashSet<Category>())
-        .ingredients(new HashSet<Ingredient>())
-        .build();
+//    Recipe recipe = Recipe.builder()
+//        .id(LONG_VALUE_1)
+//        .description(DESCRIPTION_1)
+//        .prepTime(PREP_TIME)
+//        .cookTime(COOK_TIME)
+//        .servings(SERVINGS)
+//        .source(SOURCE)
+//        .url(URL)
+//        .directions(DIRECTIONS)
+//        .difficulty(DIFFICULTY)
+//        .note(note)
+//        .categories(new HashSet<Category>())
+//        .ingredients(new HashSet<Ingredient>())
+//        .build();
+    Recipe recipe = new Recipe();
+    recipe.setId(LONG_VALUE_1);
+    recipe.setDescription(DESCRIPTION_1);
+    recipe.setPrepTime(PREP_TIME);
+    recipe.setCookTime(COOK_TIME);
+    recipe.setServings(SERVINGS);
+    recipe.setSource(SOURCE);
+    recipe.setUrl(URL);
+    recipe.setDirections(DIRECTIONS);
+    recipe.setDifficulty(DIFFICULTY);
+    recipe.setNote(note);
     recipe.getCategories().addAll(Arrays.asList(category1, category2));
     recipe.getIngredients().addAll(Arrays.asList(ingredient1, ingredient2));
 

@@ -29,9 +29,9 @@ class RecipeServiceImplTest {
 
   @Test
   public void getRecipeByIdTest() throws Exception {
-//    Recipe recipe = new Recipe();
-//    recipe.setId(1L);
-    Recipe recipe = Recipe.builder().id(1L).build();
+    Recipe recipe = new Recipe();
+    recipe.setId(1L);
+//    Recipe recipe = Recipe.builder().id(1L).build();
     Optional<Recipe> optionalRecipe = Optional.of(recipe);
 
     when(recipeRepository.findById(anyLong())).thenReturn(optionalRecipe);
@@ -47,7 +47,7 @@ class RecipeServiceImplTest {
   public void getRecipesTest() throws Exception {
 //    Recipe recipe = new Recipe();
     HashSet<Recipe> recipesData = new HashSet<>();
-    recipesData.add(Recipe.builder().build());
+    recipesData.add(new Recipe());
 
     when(recipeService.getRecipes()).thenReturn(recipesData);
 

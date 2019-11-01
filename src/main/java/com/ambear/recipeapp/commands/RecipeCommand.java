@@ -22,6 +22,6 @@ public class RecipeCommand {
   private String directions;
   private Set<IngredientCommand> ingredients = new HashSet<>();
   private Difficulty difficulty;
-  private NoteCommand notes;
+  private NoteCommand note;
   private Set<CategoryCommand> categories = new HashSet<>();
 }

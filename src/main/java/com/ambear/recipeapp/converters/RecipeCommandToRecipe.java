@@ -38,20 +38,35 @@ public class RecipeCommandToRecipe
       return null;
     }
 
-    final Recipe recipe = Recipe.builder()
-        .id(source.getId())
-        .cookTime(source.getCookTime())
-        .prepTime(source.getPrepTime())
-        .description(source.getDescription())
-        .difficulty(source.getDifficulty())
-        .directions(source.getDirections())
-        .servings(source.getServings())
-        .source(source.getSource())
-        .url(source.getUrl())
-        .note(notesConverter.convert(source.getNotes()))
-        .ingredients(new HashSet<Ingredient>())
-        .categories(new HashSet<Category>())
-        .build();
+//    final Recipe recipe = Recipe.builder()
+//        .id(source.getId())
+//        .cookTime(source.getCookTime())
+//        .prepTime(source.getPrepTime())
+//        .description(source.getDescription())
+//        .difficulty(source.getDifficulty())
+//        .directions(source.getDirections())
+//        .servings(source.getServings())
+//        .source(source.getSource())
+//        .url(source.getUrl())
+//        .note(notesConverter.convert(source.getNotes()))
+//        .ingredients(new HashSet<Ingredient>())
+//        .categories(new HashSet<Category>())
+//        .build();
+    final Recipe recipe = new Recipe();
+    recipe.setId(source.getId());
+    recipe.setCookTime(source.getCookTime());
+    recipe.setPrepTime(source.getPrepTime());
+    recipe.setDescription(source.getDescription());
+    recipe.setDifficulty(source.getDifficulty());
+    recipe.setDirections(source.getDirections());
+    recipe.setServings(source.getServings());
+    recipe.setSource(source.getSource());
+    recipe.setUrl(source.getUrl());
+//    recipe.setNote(notesConverter.convert(source.getNote()));
+
+    if(source.getNote() != null) {
+      recipe.setNote(notesConverter.convert(source.getNote()));
+    }
 
     if(source.getCategories() != null && source.getCategories().size() > 0) {
       source.getCategories().forEach(

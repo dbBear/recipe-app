@@ -19,12 +19,14 @@ public class UomCommandToUom
       return null;
     }
 
-//    final UnitOfMeasure uom = new UnitOfMeasure();
-//    uom.setId(source.getId());
-//    uom.setDescription(source.getDescription());
-    return UnitOfMeasure.builder()
-        .id(source.getId())
-        .description(source.getDescription())
-        .build();
+    final UnitOfMeasure uom = new UnitOfMeasure();
+    uom.setId(source.getId());
+    uom.setDescription(source.getDescription());
+
+    return uom;
+//    return UnitOfMeasure.builder()
+//        .id(source.getId())
+//        .description(source.getDescription())
+//        .build();
   }
 }

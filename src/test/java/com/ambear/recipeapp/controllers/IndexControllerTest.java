@@ -52,10 +52,10 @@ class IndexControllerTest {
     //given
     Set<Recipe> recipes = new HashSet<>();
 
-//    Recipe recipe = new Recipe();
-//    recipe.setId(2L);
-    Recipe recipe = Recipe.builder().id(2L).build();
-    recipes.add(Recipe.builder().build());
+    Recipe recipe = new Recipe();
+    recipe.setId(2L);
+//    Recipe recipe = Recipe.builder().id(2L).build();
+//    recipes.add(Recipe.builder().build());
     recipes.add(recipe);
 
     when(recipeService.getRecipes()).thenReturn(recipes);
@@ -69,7 +69,8 @@ class IndexControllerTest {
     assertEquals(viewName, "index");
     verify(recipeService, times(1)).getRecipes();
     verify(model,times(1)).addAttribute(eq("recipes"),argumentCaptor.capture());
+
     Set<Recipe> setInController = argumentCaptor.getValue();
-    assertEquals(2, setInController.size());
+    assertEquals(1, setInController.size());
   }
 }
