@@ -1,5 +1,6 @@
 package com.ambear.recipeapp.domain;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,6 +12,7 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(exclude = {"categories", "ingredients"})
 @Entity
+@Builder
 public class Recipe {
 
   @Id

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Show Recipe</title>
+
+  <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+      th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+
+  <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+      th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js}"></script>
+
+  <script
+      src="https://code.jquery.com/jquery-3.0.0.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+      th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+
+</head>
+<body>
+<!--/*@thymesVar id="recipe" type="com.ambear.recipeapp.domain.Recipe"*/-->
+<div class="container-fluid" style="margin-top: 20px">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-header text-white bg-dark text-white bg-dark">
+          <h1 class="card-title" th:text="${recipe.description}">Recipe Description</h1>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3">
+              <h5>Categories:</h5>
+            </div>
+            <div class="col-md-9">
+              <ul>
+                <li th:each="category : ${recipe.categories}" th:text="${category.getDescription()}">Categories</li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <h5>Prep Time:</h5>
+            </div>
+            <div class="col-md-3">
+              <p th:text="${(recipe.prepTime) + ' Min'}">prep time</p>
+            </div>
+            <div class="col-md-3">
+              <h5>Difficulty:</h5>
+            </div>
+            <div class="col-md-3">
+              <p th:text="${(recipe.difficulty)}">difficulty</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <h5>Cooktime:</h5>
+            </div>
+            <div class="col-md-3">
+              <p th:text="${(recipe.cookTime + ' Min')}">cook time</p>
+            </div>
+            <div class="col-md-3">
+              <h5>Servings:</h5>
+            </div>
+            <div class="col-md-3">
+              <p th:text="${recipe.servings}">servings</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <h5>Source:</h5>
+            </div>
+            <div class="col-md-3">
+              <p th:text="${recipe.source}">source</p>
+            </div>
+            <div class="col-md-3">
+              <h5>URL:</h5>
+            </div>
+            <div class="col-md-3">
+              <p><a href="#" th:href="${recipe.url}" th:utext="${recipe.source}" target="_blank">url</a> </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">Ingredients</h1>
+          <div class="row">
+            <div class="col-md-12">
+              <ul >
+                <li th:each="ingredient: ${recipe.ingredients}"
+                    th:text="${(ingredient.amount) +
+                ' ' + ingredient.uom.description +
+                ' - ' + ingredient.description}">ingredient</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">Directions</h1>
+          <div class="row">
+            <div class="col-md-12">
+<!--              <p th:text="${recipe.directions}">Directions</p>-->
+              <p th:utext="${#strings.replace(
+                recipe.directions,
+                T(org.apache.commons.lang3.StringUtils).LF,
+                '&lt;br /&gt;&lt;br /&gt;')
+              }">directions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">Notes</h1>
+          <div class="row">
+            <div class="col-md-12">
+<!--              <p th:text="${recipe.note.recipeNote}">recipe notes</p>-->
+              <p th:utext="${#strings.replace(
+                recipe.note.recipeNote,
+                T(org.apache.commons.lang3.StringUtils).LF,
+                '&lt;br /&gt;&lt;br /&gt;')
+              }">note descriptions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

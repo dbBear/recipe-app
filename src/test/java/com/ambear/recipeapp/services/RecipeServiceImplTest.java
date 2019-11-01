@@ -8,42 +8,55 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.util.AssertionErrors.assertNotNull;
 
 class RecipeServiceImplTest {
-
   RecipeServiceImpl recipeService;
-
 
   @Mock
   RecipeRepository recipeRepository;
 
   @BeforeEach
-  void setUp() {
+  public void setUp() throws Exception {
     MockitoAnnotations.initMocks(this);
-
     recipeService = new RecipeServiceImpl(recipeRepository);
   }
 
   @Test
-  void getRecipes() {
-    // because there's no repository, this is setting up fake data.
-    Recipe recipe = new Recipe();
-    HashSet<Recipe> recipeData = new HashSet<>();
-    recipeData.add(recipe);
+  public void getRecipeByIdTest() throws Exception {
+//    Recipe recipe = new Recipe();
+//    recipe.setId(1L);
+    Recipe recipe = Recipe.builder().id(1L).build();
+    Optional<Recipe> optionalRecipe = Optional.of(recipe);
 
-    // this is an 'override' so that when recipeRepository.findAll() is called, we send the above
-    // data
-    when(recipeRepository.findAll()).thenReturn(recipeData);
+    when(recipeRepository.findById(anyLong())).thenReturn(optionalRecipe);
+
+    Recipe recipeReturn = recipeService.findById(1L);
+
+    assertNotNull("Null recipe returned", optionalRecipe);
+    verify(recipeRepository,times(1)).findById(anyLong());
+    verify(recipeRepository, never()).findAll();
+  }
+
+  @Test
+  public void getRecipesTest() throws Exception {
+//    Recipe recipe = new Recipe();
+    HashSet<Recipe> recipesData = new HashSet<>();
+    recipesData.add(Recipe.builder().build());
+
+    when(recipeService.getRecipes()).thenReturn(recipesData);
 
     Set<Recipe> recipes = recipeService.getRecipes();
 
+    assertNotNull("Null recipes returned", recipes);
     assertEquals(recipes.size(), 1);
+    verify(recipeRepository).findAll();
+    verify(recipeRepository, never()).findById(anyLong());
 
-    // verifies that recipeRepository method findAll was called 1 time
-    verify(recipeRepository, times(1)).findAll();
   }
 }

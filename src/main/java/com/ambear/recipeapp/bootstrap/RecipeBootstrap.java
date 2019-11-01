@@ -80,14 +80,25 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     System.out.println("got all loaded unites of measure...");
 
 
-    Recipe guacRecipe = new Recipe();
-    guacRecipe.setDescription("Perfect Guacamole");
-    guacRecipe.setPrepTime(10);
-    guacRecipe.setCookTime(0);
-    guacRecipe.setServings(4);
-    guacRecipe.setSource("Simply Recipes");
-    guacRecipe.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
-    guacRecipe.setDifficulty(Difficulty.EASY);
+//    Recipe guacRecipe = new Recipe();
+//    guacRecipe.setDescription("Perfect Guacamole");
+//    guacRecipe.setPrepTime(10);
+//    guacRecipe.setCookTime(0);
+//    guacRecipe.setServings(4);
+//    guacRecipe.setSource("Simply Recipes");
+//    guacRecipe.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
+//    guacRecipe.setDifficulty(Difficulty.EASY);
+
+    Recipe guacRecipe = Recipe.builder()
+        .description("Perfect Guacamole")
+        .prepTime(10)
+        .cookTime(0)
+        .servings(4)
+        .source("Simply Recipe")
+        .url("https://www.simplyrecipes.com/recipes/perfect_guacamole/")
+        .difficulty(Difficulty.EASY)
+        .build();
+
     Note guacNote = new Note();
     guacNote.setRecipeNote(
         "Guacamole, a dip made from avocados, is originally from Mexico. The name is derived from two Aztec Nahuatl words—ahuacatl (avocado) and molli (sauce).\n"
@@ -123,14 +134,25 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         + "4 Cover with plastic and chill to store: Place plastic wrap on the surface of the guacamole cover it and to prevent air reaching it. (The oxygen in the air causes oxidation which will turn the guacamole brown.) Refrigerate until ready to serve.\n"
         + "Chilling tomatoes hurts their flavor, so if you want to add chopped tomato to your guacamole, add it just before serving.");
 
-    Recipe chickenTacoRecipe = new Recipe();
-    chickenTacoRecipe.setDescription("Spicy Grilled Chicken Tacos");
-    chickenTacoRecipe.setPrepTime(20);
-    chickenTacoRecipe.setCookTime(15);
-    chickenTacoRecipe.setServings(6);
-    chickenTacoRecipe.setSource("Simply Recipes");
-    chickenTacoRecipe.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
-    chickenTacoRecipe.setDifficulty(Difficulty.MODERATE);
+//    Recipe chickenTacoRecipe = new Recipe();
+//    chickenTacoRecipe.setDescription("Spicy Grilled Chicken Tacos");
+//    chickenTacoRecipe.setPrepTime(20);
+//    chickenTacoRecipe.setCookTime(15);
+//    chickenTacoRecipe.setServings(6);
+//    chickenTacoRecipe.setSource("Simply Recipes");
+//    chickenTacoRecipe.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
+//    chickenTacoRecipe.setDifficulty(Difficulty.MODERATE);
+
+    Recipe chickenTacoRecipe = Recipe.builder()
+        .description("Spicy Grilled chicken Tacos")
+        .prepTime(20)
+        .cookTime(15)
+        .servings(6)
+        .source("Simply Recipes")
+        .url("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/")
+        .difficulty(Difficulty.MODERATE)
+        .build();
+
     Note chickenTacoRecipeNote = new Note();
     chickenTacoRecipeNote.setRecipe(chickenTacoRecipe);
     chickenTacoRecipeNote.setRecipeNote(
