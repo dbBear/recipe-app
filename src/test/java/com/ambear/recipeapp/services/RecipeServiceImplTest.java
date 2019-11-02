@@ -1,5 +1,6 @@
 package com.ambear.recipeapp.services;
 
+import com.ambear.recipeapp.commands.RecipeCommand;
 import com.ambear.recipeapp.converters.RecipeCommandToRecipe;
 import com.ambear.recipeapp.converters.RecipeToRecipeCommand;
 import com.ambear.recipeapp.domain.Recipe;
@@ -18,14 +19,12 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.util.AssertionErrors.assertNotNull;
 
 class RecipeServiceImplTest {
-  RecipeServiceImpl recipeService;
 
+  RecipeServiceImpl recipeService;
+  RecipeCommandToRecipe recipeCommandToRecipe;
+  RecipeToRecipeCommand recipeToRecipeCommand;
   @Mock
   RecipeRepository recipeRepository;
-  @Mock
-  RecipeCommandToRecipe recipeCommandToRecipe;
-  @Mock
-  RecipeToRecipeCommand recipeToRecipeCommand;
 
   @BeforeEach
   public void setUp() throws Exception {
@@ -34,7 +33,7 @@ class RecipeServiceImplTest {
   }
 
   @Test
-  public void getRecipeByIdTest() throws Exception {
+  void getRecipeByIdTest() {
     Recipe recipe = new Recipe();
     recipe.setId(1L);
 //    Recipe recipe = Recipe.builder().id(1L).build();
@@ -50,7 +49,7 @@ class RecipeServiceImplTest {
   }
 
   @Test
-  public void getRecipesTest() throws Exception {
+  void getRecipesTest() {
 //    Recipe recipe = new Recipe();
     HashSet<Recipe> recipesData = new HashSet<>();
     recipesData.add(new Recipe());
@@ -63,6 +62,22 @@ class RecipeServiceImplTest {
     assertEquals(recipes.size(), 1);
     verify(recipeRepository).findAll();
     verify(recipeRepository, never()).findById(anyLong());
-
   }
+
+//  @Test
+//  void saveRecipeCommandTest() {
+//    RecipeCommand command = new RecipeCommand();
+//    command.setId(1L);
+//    Recipe recipe = recipeCommandToRecipe.convert(command);
+//
+//    when(recipeRepository.save(any())).thenReturn(recipe);
+//
+//    RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
+//
+//    assertNotNull("Null commands returned", savedCommand);
+//    assertEquals(command.getId(), savedCommand.getId());
+//    verify(recipeRepository,times(1)).save(any());
+//
+//
+//  }
 }
