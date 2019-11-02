@@ -1,5 +1,6 @@
 package com.ambear.recipeapp.services;
 
+import com.ambear.recipeapp.commands.RecipeCommand;
 import com.ambear.recipeapp.domain.Recipe;
 
 import java.util.Optional;
@@ -9,5 +10,6 @@ public interface RecipeService {
 
   Set<Recipe> getRecipes();
   Recipe findById(Long id);
+  RecipeCommand saveRecipeCommand(RecipeCommand command);
 }
 

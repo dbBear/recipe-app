@@ -1,5 +1,7 @@
 package com.ambear.recipeapp.services;
 
+import com.ambear.recipeapp.converters.RecipeCommandToRecipe;
+import com.ambear.recipeapp.converters.RecipeToRecipeCommand;
 import com.ambear.recipeapp.domain.Recipe;
 import com.ambear.recipeapp.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,11 +22,15 @@ class RecipeServiceImplTest {
 
   @Mock
   RecipeRepository recipeRepository;
+  @Mock
+  RecipeCommandToRecipe recipeCommandToRecipe;
+  @Mock
+  RecipeToRecipeCommand recipeToRecipeCommand;
 
   @BeforeEach
   public void setUp() throws Exception {
     MockitoAnnotations.initMocks(this);
-    recipeService = new RecipeServiceImpl(recipeRepository);
+    recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
   }
 
   @Test
