@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Upload Form</title>
+  <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+      th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+
+  <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+      th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js}"></script>
+
+  <script
+      src="https://code.jquery.com/jquery-3.0.0.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+      th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+</head>
+<body>
+<!--/*@tymesVar id="recipe" type="com.ambear.recipeapp.domain.Recipe"*/-->
+<div class="container-fluid" style="magin-top: 20px">
+  <div class="row">
+    <div class="col-sm-6 offset-md-3">
+      <div class="card-group">
+        <div class="card">
+          <div class="card-header">
+            <h1>Upload a new recipe image</h1>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-5">
+                <form action="http://localhost" method="post" enctype="multipart/form-data"
+                      th:action="@{'/recipe/' + ${recipe.id} + '/image'}">
+                  <label for="imagefile">Select File</label>
+                  <input id="imagefile" name="imagefile" type="file"/>
+                  <button type="submit" class="btn btn-primary" style="margin: 14px">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

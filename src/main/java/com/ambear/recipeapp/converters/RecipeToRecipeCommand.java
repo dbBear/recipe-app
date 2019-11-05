@@ -43,6 +43,7 @@ public class RecipeToRecipeCommand
     recipeCommand.setUrl(source.getUrl());
     recipeCommand.setDirections(source.getDirections());
     recipeCommand.setDifficulty(source.getDifficulty());
+    recipeCommand.setImage(source.getImage());
     recipeCommand.setNote(notesConverter.convert(source.getNote()));
 
     if(source.getCategories() != null && source.getCategories().size() > 0) {
