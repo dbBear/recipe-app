@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Ingredient</title>
+
+  <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+      th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+
+  <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+      th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js}"></script>
+
+  <script
+      src="https://code.jquery.com/jquery-3.0.0.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+      th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 20px; margin-bottom: 20px">
+  <div class="row">
+    <div class="col-sm-6 offset-sm-3">
+      <!--/*@thymesVar id=ingredient" type="com.ambear.recipeapp.commands.IngredientCommand"*/-->
+      <form
+          th:object="${ingredient}"
+          th:action="@{'/recipe/' + ${ingredient.getRecipeId()} + '/ingredient'}"
+          method="post"
+      >
+        <input type="hidden" th:field="*{id}" />
+        <div class="card-group">
+          <div class="card">
+            <div class="card-header">
+              <h1>Edit Ingredient Information</h1>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-12 form-group">
+                  <label for="description">Description:</label>
+                  <input id="description" type="text" class="form-control" th:field="*{description}"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3 form-group">
+                  <label for="amount">Amount:</label>
+                  <input id="amount" type="number" class="form-control" th:field="*{amount}"/>
+                </div>
+                <div class="col-sm-5 offset-sm-2 form-group">
+                  <label for="uom">UOM:</label>
+                  <select id="uom" class="form-control" name="uom.id">
+                    <option th:each="uomEach: ${uomList}"
+                            th:value="${uomEach.id}"
+                            th:selected="${uomEach.id.equals(ingredient.uom.id)}"
+                            th:text="${uomEach.description}">Each</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin: 0 10px 10px 10px">Submit</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,15 +1,14 @@
 package com.ambear.recipeapp.domain;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"categories", "ingredients"})
 @Entity
 public class Recipe {

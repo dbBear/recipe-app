@@ -1,11 +1,13 @@
 package com.ambear.recipeapp.domain;
 
 import lombok.*;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 @NoArgsConstructor

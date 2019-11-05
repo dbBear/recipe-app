@@ -3,7 +3,7 @@ package com.ambear.recipeapp.bootstrap;
 import com.ambear.recipeapp.domain.*;
 import com.ambear.recipeapp.repositories.CategoryRepository;
 import com.ambear.recipeapp.repositories.RecipeRepository;
-import com.ambear.recipeapp.repositories.UnitOfMeasureRepository;
+import com.ambear.recipeapp.repositories.UomRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -20,16 +20,16 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
   private final RecipeRepository recipeRepository;
   private final CategoryRepository categoryRepository;
-  private final UnitOfMeasureRepository unitOfMeasureRepository;
+  private final UomRepository uomRepository;
 
   public RecipeBootstrap(
       RecipeRepository recipeRepository,
       CategoryRepository categoryRepository,
-      UnitOfMeasureRepository unitOfMeasureRepository)
+      UomRepository uomRepository)
   {
     this.recipeRepository = recipeRepository;
     this.categoryRepository = categoryRepository;
-    this.unitOfMeasureRepository = unitOfMeasureRepository;
+    this.uomRepository = uomRepository;
   }
 
   @Override
@@ -66,14 +66,14 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     UnitOfMeasure dashUoM;
     UnitOfMeasure pintUoM;
     try {
-      teaspoonUoM = unitOfMeasureRepository.findByDescription("teaspoon").get();
-      tablespoonUoM = unitOfMeasureRepository.findByDescription("tablespoon").get();
-      cupUoM = unitOfMeasureRepository.findByDescription("cup").get();
-      pinchUoM = unitOfMeasureRepository.findByDescription("pinch").get();
-      ounceUoM = unitOfMeasureRepository.findByDescription("ounce").get();
-      wholeUoM = unitOfMeasureRepository.findByDescription("whole").get();
-      dashUoM = unitOfMeasureRepository.findByDescription("dash").get();
-      pintUoM = unitOfMeasureRepository.findByDescription("pint").get();
+      teaspoonUoM = uomRepository.findByDescription("teaspoon").get();
+      tablespoonUoM = uomRepository.findByDescription("tablespoon").get();
+      cupUoM = uomRepository.findByDescription("cup").get();
+      pinchUoM = uomRepository.findByDescription("pinch").get();
+      ounceUoM = uomRepository.findByDescription("ounce").get();
+      wholeUoM = uomRepository.findByDescription("whole").get();
+      dashUoM = uomRepository.findByDescription("dash").get();
+      pintUoM = uomRepository.findByDescription("pint").get();
     } catch (Exception e) {
       throw new RuntimeException("Expected UnitOfMeasure not found");
     }
