@@ -1,15 +1,11 @@
 package com.ambear.recipeapp.controllers;
 
 import com.ambear.recipeapp.commands.RecipeCommand;
-import com.ambear.recipeapp.exceptions.NotFoundException;
-import com.ambear.recipeapp.exceptions.NumberFormatException;
 import com.ambear.recipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @RequestMapping({"/recipe"})
@@ -26,11 +22,7 @@ public class RecipeController {
   public String showById(@PathVariable String id, Model model) {
     log.debug("I'm in RecipeController");
 
-    try {
       model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
-    } catch (java.lang.NumberFormatException e) {
-      throw new NumberFormatException(id + " is not a Long value");
-    }
     return "recipe/show";
   }
 
@@ -62,29 +54,29 @@ public class RecipeController {
     return "redirect:/";
   }
 
-  @ExceptionHandler(NotFoundException.class)
-  @ResponseStatus(HttpStatus.NOT_FOUND)
-  public ModelAndView handleNotFound(Exception e) {
-    log.error("Handling not found exception");
-    log.error(e.getMessage());
+//  @ExceptionHandler(NotFoundException.class)
+//  @ResponseStatus(HttpStatus.NOT_FOUND)
+//  public ModelAndView handleNotFound(Exception e) {
+//    log.error("Handling not found exception");
+//    log.error(e.getMessage());
+//
+//    ModelAndView modelAndView = new ModelAndView("errorPage");
+////    modelAndView.setViewName("errorPage");
+//    modelAndView.addObject("errorCode", HttpStatus.NOT_FOUND);
+//    modelAndView.addObject("exception", e);
+//    return modelAndView;
+//  }
 
-    ModelAndView modelAndView = new ModelAndView("errorPage");
-//    modelAndView.setViewName("errorPage");
-    modelAndView.addObject("errorCode", HttpStatus.NOT_FOUND);
-    modelAndView.addObject("exception", e);
-    return modelAndView;
-  }
-
-  @ExceptionHandler(NumberFormatException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public ModelAndView handleNumberFormat(Exception e) {
-    log.error("Handling Number Format Exception");
-    log.error(e.getMessage());
-
-    ModelAndView mv = new ModelAndView("errorPage");
-//    mv.setViewName("errorPage");
-    mv.addObject("errorCode", HttpStatus.BAD_REQUEST);
-    mv.addObject("exception", e);
-    return mv;
-  }
+//  @ExceptionHandler(NumberFormatException.class)
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  public ModelAndView handleNumberFormat(Exception e) {
+//    log.error("Handling Number Format Exception");
+//    log.error(e.getMessage());
+//
+//    ModelAndView mv = new ModelAndView("errorPage");
+////    mv.setViewName("errorPage");
+//    mv.addObject("errorCode", HttpStatus.BAD_REQUEST);
+//    mv.addObject("exception", e);
+//    return mv;
+//  }
 }

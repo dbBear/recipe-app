@@ -5,6 +5,7 @@ import com.ambear.recipeapp.converters.IngredientCommandToIngredient;
 import com.ambear.recipeapp.converters.IngredientToIngredientCommand;
 import com.ambear.recipeapp.domain.Ingredient;
 import com.ambear.recipeapp.domain.Recipe;
+import com.ambear.recipeapp.exceptions.NotFoundException;
 import com.ambear.recipeapp.repositories.RecipeRepository;
 import com.ambear.recipeapp.repositories.UomRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +49,7 @@ public class IngredientServiceImpl implements IngredientService{
     Recipe recipe = recipeRepository
         .findById(recipeId)
         .orElseThrow(
-            () -> new RuntimeException("No Recipe Found")
+            () -> new NotFoundException("No Recipe Found")
         );
 
     return recipe.getIngredients().stream()
@@ -56,7 +57,7 @@ public class IngredientServiceImpl implements IngredientService{
         .map(ingredientToIngredientCommand::convert)
         .findFirst()
         .orElseThrow(
-            () -> new RuntimeException("No Ingredient Found")
+            () -> new NotFoundException("No Ingredient Found")
         );
   }
 
@@ -66,28 +67,52 @@ public class IngredientServiceImpl implements IngredientService{
       Long recipeId,
       Long ingredientId)
   {
-    Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+//    Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+//
+//    if(!recipeOptional.isPresent()) {
+//      //todo toss error if not found!
+//      String error = "Recipe not found for id: " + recipeId;
+//      log.error(error);
+//      throw new NotFoundException(error);
+//    } else {
+//      Recipe detachedRecipe = recipeOptional.get();
+//      Optional<Ingredient> ingredientOptional = detachedRecipe.getIngredients()
+//          .stream()
+//          .filter(ingredient -> ingredient.getId().equals(ingredientId))
+//          .findFirst();
+//      if(ingredientOptional.isPresent()) {
+//        Ingredient ingredientToDelete = ingredientOptional.get();
+//        ingredientToDelete.setRecipe(null);
+//        detachedRecipe.getIngredients()
+//            .removeIf(ingredient -> ingredient.getId().equals(ingredientId));
+//      } else {
+//        String error = "Ingredient id: " + ingredientId + " not found for recipe " +
+//            "id: " + recipeId;
+//        log.error(error);
+//        throw new NotFoundException(error);
+//      }
+//      recipeRepository.save(detachedRecipe);
+//    }
 
-    if(!recipeOptional.isPresent()) {
-      //todo toss error if not found!
-      log.error("Recipe not found for id: " + recipeId);
-    } else {
-      Recipe detachedRecipe = recipeOptional.get();
-      Optional<Ingredient> ingredientOptional = detachedRecipe.getIngredients()
-          .stream()
-          .filter(ingredient -> ingredient.getId().equals(ingredientId))
-          .findFirst();
-      if(ingredientOptional.isPresent()) {
-        Ingredient ingredientToDelete = ingredientOptional.get();
-        ingredientToDelete.setRecipe(null);
-        detachedRecipe.getIngredients()
-            .removeIf(ingredient -> ingredient.getId().equals(ingredientId));
-      } else {
-        log.error("Ingredient id: " + ingredientId + " not found for recipe " +
-            "id: " + recipeId);
-      }
-      recipeRepository.save(detachedRecipe);
-    }
+    Recipe detachedRecipe =
+        recipeRepository.findById(recipeId).orElseThrow(() -> {
+          String error = "Recipe not found for id: " + recipeId;
+          log.error(error);
+          return new NotFoundException(error);
+        });
+    Ingredient ingredientToDelete = detachedRecipe.getIngredients().stream()
+        .filter(ingredient -> ingredient.getId().equals(ingredientId))
+        .findFirst()
+        .orElseThrow(() -> {
+          String error = "Ingredient id: " + ingredientId + " not found for " +
+              "recipe " + recipeId;
+          log.error(error);
+          return new NotFoundException(error);
+        });
+    ingredientToDelete.setRecipe(null);
+    detachedRecipe.getIngredients()
+        .removeIf(ingredient -> ingredient.getId().equals(ingredientId));
+    recipeRepository.save(detachedRecipe);
   }
 
   @Override
@@ -95,16 +120,25 @@ public class IngredientServiceImpl implements IngredientService{
   public IngredientCommand saveIngredientCommand(
       IngredientCommand ingredientCommand)
   {
-    Optional<Recipe> recipeOptional =
-        recipeRepository.findById(ingredientCommand.getRecipeId());
+//    Optional<Recipe> recipeOptional =
+//        recipeRepository.findById(ingredientCommand.getRecipeId());
+//
+//    if(!recipeOptional.isPresent()) {
+//      //todo toss error if not found!
+//      log.error("Recipe not found for id: " + ingredientCommand.getRecipeId());
+//      return new IngredientCommand();
+//    }
 
-    if(!recipeOptional.isPresent()) {
-      //todo toss error if not found!
-      log.error("Recipe not found for id: " + ingredientCommand.getRecipeId());
-      return new IngredientCommand();
-    }
+//    Recipe recipe = recipeOptional.get();
 
-    Recipe recipe = recipeOptional.get();
+    Recipe recipe = recipeRepository.findById(ingredientCommand.getRecipeId())
+        .orElseThrow(() -> {
+          String error =
+              "Recipe not found for id: " + ingredientCommand.getRecipeId();
+          log.error(error);
+          return new NotFoundException(error);
+        });
+
 
     Optional<Ingredient> ingredientOptional = recipe
         .getIngredients().stream()
@@ -118,7 +152,7 @@ public class IngredientServiceImpl implements IngredientService{
       ingredientFound.setUom(uomRepository
           .findById(ingredientCommand.getUom().getId())
           //todo address this error handling
-          .orElseThrow(() -> new RuntimeException("UOM NOT FOUND")));
+          .orElseThrow(() -> new NotFoundException("UOM NOT FOUND")));
 
 
     } else {
