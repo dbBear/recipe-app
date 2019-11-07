@@ -137,7 +137,7 @@ class IngredientControllerTest {
   }
 
   @Test
-  void deleteIngredient() throws Exception {
+  void testDeleteIngredient() throws Exception {
     //given
 
     //when

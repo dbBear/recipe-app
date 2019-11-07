@@ -4,12 +4,16 @@ import com.ambear.recipeapp.commands.RecipeCommand;
 import com.ambear.recipeapp.converters.RecipeCommandToRecipe;
 import com.ambear.recipeapp.converters.RecipeToRecipeCommand;
 import com.ambear.recipeapp.domain.Recipe;
+import com.ambear.recipeapp.exceptions.NotFoundException;
 import com.ambear.recipeapp.repositories.RecipeRepository;
+import com.sun.org.apache.regexp.internal.RE;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import javax.swing.text.html.Option;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -21,7 +25,9 @@ import static org.springframework.test.util.AssertionErrors.assertNotNull;
 class RecipeServiceImplTest {
 
   RecipeServiceImpl recipeService;
+  @Mock
   RecipeCommandToRecipe recipeCommandToRecipe;
+  @Mock
   RecipeToRecipeCommand recipeToRecipeCommand;
   @Mock
   RecipeRepository recipeRepository;
@@ -46,6 +52,36 @@ class RecipeServiceImplTest {
     assertNotNull("Null recipe returned", optionalRecipe);
     verify(recipeRepository,times(1)).findById(anyLong());
     verify(recipeRepository, never()).findAll();
+  }
+
+  @Test
+  void getRecipeByIdTestNotFound() {
+    Optional<Recipe> recipeOptional = Optional.empty();
+
+    when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+    Assertions.assertThrows(NotFoundException.class, () -> {
+      Recipe recipeReturned = recipeService.findById(1L);
+    });
+  }
+
+  @Test
+  void getRecipeCommandByIdTest() throws Exception {
+    Recipe recipe = new Recipe();
+    recipe.setId(1L);
+    when(recipeRepository.findById(anyLong())).thenReturn(Optional.of(recipe));
+
+    RecipeCommand recipeCommand = new RecipeCommand();
+    recipeCommand.setId(1L);
+
+    when(recipeToRecipeCommand.convert(any())).thenReturn(recipeCommand);
+
+    RecipeCommand commandById = recipeService.findCommandById(1L);
+
+    assertNotNull("Null recipe returned", commandById);
+    verify(recipeRepository, times(1)).findById(anyLong());
+    verify(recipeRepository, never()).findAll();
+
   }
 
   @Test
@@ -76,6 +112,7 @@ class RecipeServiceImplTest {
     //then
     verify(recipeRepository, times(1)).deleteById(anyLong());
   }
+
 
 //  @Test
 //  void saveRecipeCommandTest() {

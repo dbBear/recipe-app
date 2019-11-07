@@ -4,6 +4,7 @@ import com.ambear.recipeapp.commands.RecipeCommand;
 import com.ambear.recipeapp.converters.RecipeCommandToRecipe;
 import com.ambear.recipeapp.converters.RecipeToRecipeCommand;
 import com.ambear.recipeapp.domain.Recipe;
+import com.ambear.recipeapp.exceptions.NotFoundException;
 import com.ambear.recipeapp.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,7 @@ public class RecipeServiceImpl implements RecipeService {
     log.debug("I'm in the service");
     return recipeRepository
         .findById(id)
-        .orElseThrow(() -> new RuntimeException("Recipe Not Found!"));
+        .orElseThrow(() -> new NotFoundException("Recipe Not Found!"));
   }
 
   @Override

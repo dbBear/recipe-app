@@ -2,6 +2,7 @@ package com.ambear.recipeapp.controllers;
 
 import com.ambear.recipeapp.commands.RecipeCommand;
 import com.ambear.recipeapp.domain.Recipe;
+import com.ambear.recipeapp.exceptions.NotFoundException;
 import com.ambear.recipeapp.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ class RecipeControllerTest {
 
 
   @BeforeEach
-  void setUp() throws Exception {
+  void setUp() {
     MockitoAnnotations.initMocks(this);
     recipeController = new RecipeController(recipeService);
     mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
@@ -49,6 +50,17 @@ class RecipeControllerTest {
     mockMvc.perform(get("/recipe/1/show"))
         .andExpect(status().isOk())
         .andExpect(view().name("recipe/show"));
+  }
+
+  @Test
+  void testGetRecipeNotFound() throws Exception {
+//    Recipe recipe = new Recipe();
+//    recipe.setId(1L);
+
+    when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+    mockMvc.perform(get("/recipe/1/show"))
+        .andExpect(status().isNotFound());
   }
 
   @Test
