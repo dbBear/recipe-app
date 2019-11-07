@@ -44,7 +44,8 @@ public class RecipeServiceImpl implements RecipeService {
     log.debug("I'm in the service");
     return recipeRepository
         .findById(id)
-        .orElseThrow(() -> new NotFoundException("Recipe Not Found!"));
+        .orElseThrow(() -> new NotFoundException("Recipe not found for Id " +
+            "value: " + id));
   }
 
   @Override
