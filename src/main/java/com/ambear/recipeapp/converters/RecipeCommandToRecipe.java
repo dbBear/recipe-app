@@ -38,20 +38,6 @@ public class RecipeCommandToRecipe
       return null;
     }
 
-//    final Recipe recipe = Recipe.builder()
-//        .id(source.getId())
-//        .cookTime(source.getCookTime())
-//        .prepTime(source.getPrepTime())
-//        .description(source.getDescription())
-//        .difficulty(source.getDifficulty())
-//        .directions(source.getDirections())
-//        .servings(source.getServings())
-//        .source(source.getSource())
-//        .url(source.getUrl())
-//        .note(notesConverter.convert(source.getNotes()))
-//        .ingredients(new HashSet<Ingredient>())
-//        .categories(new HashSet<Category>())
-//        .build();
     final Recipe recipe = new Recipe();
     recipe.setId(source.getId());
     recipe.setCookTime(source.getCookTime());
