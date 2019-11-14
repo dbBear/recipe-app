@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://localhost:3307/ambear_prod
+    username: ambear_prod_user
+    password: prodPassword
+  jpa:
+    hiberante:
+      ddl-auto: validate
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database: mysql
+    show-sql: false

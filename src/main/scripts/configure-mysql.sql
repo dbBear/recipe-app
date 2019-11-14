@@ -8,10 +8,10 @@ CREATE DATABASE ambear_prod;
 
 -- Create database service accounts
 CREATE USER 'ambear_dev_user'@'localhost' IDENTIFIED BY 'devPassword';
-CREATE USER 'ambear_prod_user'@'localhost' IDENTIFIED BY 'proPassword';
+CREATE USER 'ambear_prod_user'@'localhost' IDENTIFIED BY 'prodPassword';
 -- % means user from any host
 CREATE USER 'ambear_dev_user'@'%' IDENTIFIED BY 'devPassword';
-CREATE USER 'ambear_prod_user'@'%' IDENTIFIED BY 'proPassword';
+CREATE USER 'ambear_prod_user'@'%' IDENTIFIED BY 'prodPassword';
 
 -- Database grants
 GRANT INSERT ON  ambear_dev.* to 'ambear_dev_user'@'localhost';

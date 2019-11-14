@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://localhost:3307/ambear_dev
+    username: ambear_dev_user
+    password: devPassword
+  jpa:
+    hibernate:
+      ddl-auto: validate
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database: mysql
+    show-sql: true
+#    properties:
+#      javax:
+#        persistence:
+#          schema-generation:
+#            create-source: metadata
+#            scripts:
+#              action: drop-and-create
+#              create-target: sql-scripts/ambear_database_dev_create.sql
+#              drop-target: sql-scripts/ambear_database_dev_drop.sql
+
+
